@@ -1,8 +1,6 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-#include <stdlib.h>
-
 typedef struct Node {
     int data;
     struct Node* next;
@@ -22,11 +20,12 @@ LinkedList* LinkedList_create();
 void LinkedList_delete(LinkedList** linkedList);
 void LinkedList_appendFront(LinkedList* linkedList, Node* newNode);
 void LinkedList_appendEnd(LinkedList* linkedList, Node* newNode);
-void LinkedList_appendAt(LinkedList* linkedList, Node* newNode, int position);
+int LinkedList_appendAt(LinkedList* linkedList, Node* newNode, int position);
 void LinkedList_deleteFront(LinkedList* linkedList);
 void LinkedList_deleteEnd(LinkedList* linkedList);
-void LinkedList_deleteAt(LinkedList* linkedList, int position);
+int LinkedList_deleteAt(LinkedList* linkedList, int position);
 void LinkedList_displayList(LinkedList* linkedList);
+int LinkedList_deleteValue(LinkedList* linkedList, int value);
 
 
 #endif 

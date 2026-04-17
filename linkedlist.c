@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "linkedlist.h"
 
 Node* Node_create(int data) {
@@ -51,7 +52,7 @@ void LinkedList_appendEnd(LinkedList* linkedList, Node* newNode) {
 }
 
 //start position from 0, like an array
-void LinkedList_appendAt(LinkedList* linkedList, Node* newNode, int position) {
+int LinkedList_appendAt(LinkedList* linkedList, Node* newNode, int position) {
     if (position < 0) {
         printf("Position is invalid\n");
         return 1;
@@ -70,12 +71,13 @@ void LinkedList_appendAt(LinkedList* linkedList, Node* newNode, int position) {
     for (int i = 0; i < position-1; i++) {
         if (searchNode->next == NULL) {
             printf("Position specified is greater than the size of the linked list.\n");
-            return;
+            return 1;
         }
         searchNode = searchNode->next;
     }
     newNode->next = searchNode->next;
     searchNode->next = newNode;
+    return 0;
 }
 
 void LinkedList_deleteFront(LinkedList* linkedList) {
@@ -108,17 +110,17 @@ void LinkedList_deleteEnd(LinkedList* linkedList) {
     newLastNode->next = NULL;
 }
 
-void LinkedList_deleteAt(LinkedList* linkedList, int position) {
+int LinkedList_deleteAt(LinkedList* linkedList, int position) {
     if (position == 0) {
         LinkedList_deleteFront(linkedList);
-        return;
+        return 0;
     }
     Node* searchNode = linkedList->head;
     //iterate through the list until we get to the Node before the desired position
     for (int i = 0; i < position - 1; i++) {
         if (searchNode->next == NULL) {
             printf("Position specified is greater than the size of the linked list.\n");
-            return;
+            return 1;
         }
         searchNode = searchNode->next;
     }
@@ -134,6 +136,7 @@ void LinkedList_deleteAt(LinkedList* linkedList, int position) {
         free(searchNode->next);
         searchNode->next = NULL;
     }    
+    return 0;
 }
 
 void LinkedList_displayList(LinkedList* linkedList) {
@@ -145,4 +148,24 @@ void LinkedList_displayList(LinkedList* linkedList) {
         node = node->next;
         counter++;           
     }
+}
+
+//deletes all values in the list that match
+int LinkedList_deleteValue(LinkedList* linkedList, int data) {
+    if (linkedList == NULL) return 1;
+    //check for empty list
+    if (linkedList->head == NULL) return 1;
+    //head -> node -> node
+    Node** searchNode = &linkedList->head;
+    while (*searchNode != NULL) {
+        if ((*searchNode)->data == data) { //found one to delete
+            Node* temp = *searchNode;
+            *searchNode = (*searchNode)->next;
+            free(temp);
+        }
+        else {
+            searchNode = &(*searchNode)->next;
+        }
+    }
+    return 0;
 }

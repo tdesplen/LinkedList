@@ -1,17 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
-
-// To execute C, please define "int main()"
-
-typedef struct Node {
-    int data;
-    struct Node* next;
-} Node;
-
-typedef struct LinkedList {
-    Node* head;
-
-} LinkedList;
+#include "linkedlist.h"
 
 Node* Node_create(int data) {
     Node* newNode = malloc(sizeof(struct Node));
@@ -157,10 +145,4 @@ void LinkedList_displayList(LinkedList* linkedList) {
         node = node->next;
         counter++;           
     }
-}
-
-
-
-int main() {
-    return 0;
 }

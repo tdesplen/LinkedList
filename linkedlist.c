@@ -169,3 +169,139 @@ int LinkedList_deleteValue(LinkedList* linkedList, int data) {
     }
     return 0;
 }
+
+int LinkedList_reverseInPlace(LinkedList* linkedList) {
+    if (linkedList == NULL || linkedList->head == NULL) return 1;
+    Node* node = linkedList->head;
+    Node* previousNode = NULL;
+    while (node != NULL) {
+        Node* temp = node->next;
+        node->next = previousNode;
+        previousNode = node;
+        node = temp; 
+    }
+    linkedList->head = node;
+    return 0;
+}
+
+int LinkedList_removeDuplicates(LinkedList* linkedList) {
+    if (linkedList == NULL || linkedList->head == NULL) return 1;
+    //loop through each node
+    Node** currentNode = &linkedList->head;
+    while (*currentNode != NULL) {
+        Node** nextNode = &(*currentNode)->next;
+        while (*nextNode != NULL) {
+            if ((*nextNode)->data == (*currentNode)->data) {
+                Node* temp = *nextNode;
+                *nextNode = temp->next;
+
+                free(temp);
+            }
+            else {
+                nextNode = &(*nextNode)->next;
+
+            }
+        }
+        currentNode = &(*currentNode)->next;
+    }
+    return 0;
+}
+
+Node* LinkedList_findNthNodeFromEnd(LinkedList* linkedList, int n) {
+    if (linkedList == NULL || linkedList->head == NULL) return NULL;
+    Node* targetNode = linkedList->head;
+    Node* leadNode = linkedList->head;
+    //loop until there are 'n' nodes between the target and lead
+    for (int i = 0; i < n; i++) {
+        if (leadNode->next == NULL) return NULL;
+        else {
+            leadNode = leadNode->next;
+        }
+    }
+    //advance both at the same rate
+    while (leadNode != NULL) {
+        targetNode = targetNode->next;
+        leadNode = leadNode->next;
+    }
+    return targetNode;
+}
+
+int LinkedList_mergeSortedLists(LinkedList** sortedList1, LinkedList* sortedList2) {
+    if (sortedList1 == NULL || (*sortedList1)->head == NULL) return 1;
+    if (sortedList2 == NULL || sortedList2->head == NULL) return 1;
+
+    Node* newHead = NULL;
+    Node* newTail = NULL;
+    Node* node1 = NULL;
+    Node* node2 = NULL;
+    if ((*sortedList1)->head->data < sortedList2->head->data) {
+        newHead = (*sortedList1)->head;
+        newTail = (*sortedList1)->head;
+        node1 = (*sortedList1)->head->next;
+        node2 = sortedList2->head;
+    }
+    else {
+        newHead = sortedList2->head;
+        newTail = sortedList2->head;
+        node2 = sortedList2->head->next;
+        node1 = (*sortedList1)->head;
+    }
+
+    while (node1 != NULL && node2 != NULL) {
+        if (node1->data < node2->data) {
+            newTail->next = node1;
+            node1 = node1->next;
+        }
+        else {
+            newTail->next = node2;
+            node2 = node2->next;
+        }
+        newTail = newTail->next;
+    }
+
+    if (node1 == NULL) {
+        newTail->next = node2;
+    }
+    if (node2 == NULL) {
+        newTail->next = node1;
+    }
+    
+    (*sortedList1)->head = newHead;
+    return 0;
+}
+
+//returns 0 is no cycle and 1 is cycle is present
+int LinkedList_detectCycle(LinkedList* linkedList, int* error, Node** entryPoint) {
+    int isCyclePresent = 0;
+    if (error == NULL) return 0;
+    if (entryPoint == NULL) {
+        *error = 1;
+        return 0;
+    }
+    *entryPoint = NULL;
+    if (linkedList == NULL || linkedList->head == NULL) {
+        *error = 1;
+        return 0;
+    }
+    Node* slowPointer = linkedList->head;
+    Node* fastPointer = linkedList->head;
+
+    while (fastPointer != NULL && fastPointer->next != NULL) {
+        slowPointer = slowPointer->next;
+        fastPointer = fastPointer->next->next;
+        if (slowPointer == fastPointer) {
+            isCyclePresent = 1;
+            break;
+        }
+    }
+    if (isCyclePresent) {
+        slowPointer = linkedList->head;
+        while (slowPointer != fastPointer) {
+            slowPointer = slowPointer->next;
+            fastPointer = fastPointer->next;
+        }
+        *entryPoint = fastPointer;
+    }
+    *error = 0;
+    return isCyclePresent;
+}

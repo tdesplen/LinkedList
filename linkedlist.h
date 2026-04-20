@@ -26,6 +26,10 @@ void LinkedList_deleteEnd(LinkedList* linkedList);
 int LinkedList_deleteAt(LinkedList* linkedList, int position);
 void LinkedList_displayList(LinkedList* linkedList);
 int LinkedList_deleteValue(LinkedList* linkedList, int value);
-
+int LinkedList_reverseInPlace(LinkedList* linkedList);
+int LinkedList_removeDuplicates(LinkedList* linkedList);
+Node* LinkedList_findNthNodeFromEnd(LinkedList* linkedList, int n);
+int LinkedList_mergeSortedLists(LinkedList* sortedList1, LinkedList* sortedList2);
+int LinkedList_detectCycle(LinkedList* linkedList, int* error, Node* entryPoint);
 
 #endif 

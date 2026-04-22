@@ -180,7 +180,7 @@ int LinkedList_reverseInPlace(LinkedList* linkedList) {
         previousNode = node;
         node = temp; 
     }
-    linkedList->head = node;
+    linkedList->head = previousNode;
     return 0;
 }
 

@@ -29,11 +29,11 @@ void BinarySearchTree_printNodePreOrder(BSTNode* node);
 int BinarySearchTree_preOrderTraversal(BinarySearchTree* bst);
 void BinarySearchTree_printNodePostOrder(BSTNode* node);
 int BinarySearchTree_postOrderTraversal(BinarySearchTree* bst);
-int BinarySearchTree_deleteNode(BinarySearchTree* bste, int data);
+int BinarySearchTree_deleteNode(BinarySearchTree* bst, BSTNode** node);
 void BinarySearchTree_destroyHelper(BSTNode* node);
-int BinarySearchTree_destroy(BinarySearchTree* bst);
-BSTNode* BinarySearchTree_minimumValue(BinarySearchTree* bst);
-BSTNode* BinarySearchTree_maximumValue(BinarySearchTree* bst);
+int BinarySearchTree_destroy(BinarySearchTree** bst);
+BSTNode* BinarySearchTree_minimumValue(BSTNode* bst);
+BSTNode* BinarySearchTree_maximumValue(BSTNode* bst);
 int BinarySearchTree_height(BinarySearchTree* height);
 
 

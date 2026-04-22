@@ -81,3 +81,122 @@ BSTNode* BinarySearchTree_search(BinarySearchTree* bst, int data) {
 	if (bst == NULL) return NULL;
 	return BinarySearchTree_searchHelper(bst->root, data);
 }
+
+
+void BinarySearchTree_printNodeInOrder(BSTNode* node) {
+	if (node == NULL) return;
+	BinarySearchTree_printNodeInOrder(node->left);
+	printf("%d\n", node->data);
+	BinarySearchTree_printNodeInOrder(node->right);
+}
+
+int BinarySearchTree_inOrderTraversal(BinarySearchTree* bst) {
+	if (bst == NULL) return 1;
+	BinarySearchTree_printNodeInOrder(bst->root);
+	return 0;
+}
+
+void BinarySearchTree_printNodePreOrder(BSTNode* node) {
+	if (node == NULL) return;
+	printf("%d\n", node->data);
+	BinarySearchTree_printNodePreOrder(node->left);
+	BinarySearchTree_printNodePreOrder(node->right);
+}
+
+int BinarySearchTree_preOrderTraversal(BinarySearchTree* bst) {
+	if (bst == NULL) return 1;
+	BinarySearchTree_printNodePreOrder(bst->root);
+	return 0;
+}
+
+void BinarySearchTree_printNodePostOrder(BSTNode* node) {
+	if (node == NULL) return;
+	BinarySearchTree_printNodePostOrder(node->left);
+	BinarySearchTree_printNodePostOrder(node->right);
+	printf("%d\n", node->data);
+}
+
+int BinarySearchTree_postOrderTraversal(BinarySearchTree* bst) {
+	if (bst == NULL) return 1;
+	BinarySearchTree_printNodePostOrder(bst->root);
+	return 0;
+}
+
+int BinarySearchTree_deleteNode(BinarySearchTree* bst, BSTNode** node) {
+	if (node == NULL || *node == NULL) return 1;
+	//three cases: leaf, one child, two children
+	//leaf first
+	if ((*node)->left == NULL && (*node)->right == NULL) {
+		free(*node);
+		*node = NULL;
+		return 0;
+	}
+	//one child
+	if ((*node)->left == NULL || (*node)->right == NULL) {
+		BSTNode* temp = *node;
+		if ((*node)->left == NULL) {
+			*node = (*node)->right;
+		}
+		else if ((*node)->right == NULL) {
+			*node = (*node)->left;
+		}
+		free(temp);
+		return 0;
+	}
+	//two children
+	BSTNode** replacement = &(*node)->right;
+	while ((*replacement)->left != NULL) {
+		replacement = &(*replacement)->left;
+	}
+	(*node)->data = (*replacement)->data;
+	BinarySearchTree_deleteNode(bst, replacement);
+	return 0;
+}
+
+void BinarySearchTree_destroyHelper(BSTNode* node) {
+	if (node == NULL) return;
+	BinarySearchTree_destroyHelper(node->left);
+	BinarySearchTree_destroyHelper(node->right);
+	free(node);
+}
+
+int BinarySearchTree_destroy(BinarySearchTree** bst) {
+	if (bst == NULL || *bst == NULL) return 1;
+	BinarySearchTree_destroyHelper((*bst)->root);
+	free(*bst);
+	*bst = NULL;
+	return 0;
+}
+
+BSTNode* BinarySearchTree_minimumValue(BSTNode* node) {
+	if (node == NULL) return NULL;
+	if (node->left != NULL) {
+		return BinarySearchTree_minimumValue(node->left);
+	}
+	return node;
+}
+
+BSTNode* BinarySearchTree_maximumValue(BSTNode* node) {
+	if (node == NULL) return NULL;
+	if (node->right != NULL) {
+		return BinarySearchTree_maximumValue(node->right);
+	}
+	return node;
+}
+
+int BinarySearchTree_heightHelper(BSTNode* node) {
+	if (node == NULL) return 0;
+	int leftHeight = BinarySearchTree_heightHelper(node->left);
+	int rightHeight = BinarySearchTree_heightHelper(node->right);
+	if (leftHeight >= rightHeight) {
+		return leftHeight + 1;
+	}
+	else {
+		return rightHeight + 1;
+	}
+}
+
+int BinarySearchTree_height(BinarySearchTree* bst) {
+	if (bst == NULL) return 0;
+	return BinarySearchTree_heightHelper(bst->root);
+}

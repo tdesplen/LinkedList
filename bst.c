@@ -1,4 +1,5 @@
 #include <stdlib.h> //malloc, free
+#include <stdio.h>
 #include "bst.h"
 
 BSTNode* BSTNode_create(int data) {
@@ -20,8 +21,10 @@ int BinarySearchTree_insert(BinarySearchTree* bst, int data) {
 	if (bst == NULL) return 1;
 	BSTNode* newNode = BSTNode_create(data);
 	if (bst->root == NULL) {
-		bst->root = newNode;
-		return 0;
+		if (newNode != NULL) {
+			bst->root = newNode;
+			return 0;
+		}
 	}
 	BSTNode* parent = bst->root;
 	int placed = 0;

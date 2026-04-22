@@ -2,17 +2,16 @@
 #define BINARYSEARCHTREE_H
 
 
-//design choice: less than or equalt to -> left, greater than -> right
+//design choice: less than or equal to -> left, greater than -> right
+typedef struct BSTNode {
+	int data;
+	struct BSTNode* left;
+	struct BSTNode* right;
+} BSTNode;
 
 typedef struct BinarySearchTree {
 	BSTNode* root;
 } BinarySearchTree;
-
-typedef struct BSTNode {
-	int data;
-	BSTNode* left;
-	BSTNode* right;
-} BSTNode;
 
 // BSTNode functions
 BSTNode* BSTNode_create(int data);

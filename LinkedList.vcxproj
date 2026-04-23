@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="algorithms.c" />
     <ClCompile Include="array.c" />
     <ClCompile Include="bst.c" />
     <ClCompile Include="linkedlist.c" />
@@ -139,6 +140,7 @@
     <ClCompile Include="strings.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algorithms.h" />
     <ClInclude Include="array.h" />
     <ClInclude Include="bst.h" />
     <ClInclude Include="linkedlist.h" />

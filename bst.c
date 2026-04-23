@@ -203,3 +203,34 @@ int BinarySearchTree_height(BinarySearchTree* bst) {
 	if (bst == NULL) return 0;
 	return BinarySearchTree_heightHelper(bst->root);
 }
+
+int BinarySearchTree_sizeHelper(BSTNode* node) {
+	if (node == NULL) return 0;
+	return 1 + BinarySearchTree_sizeHelper(node->left) + BinarySearchTree_sizeHelper(node->right);
+}
+
+int BinarySearchTree_size(BinarySearchTree* bst) {
+	if (bst == NULL) return 0;
+	return BinarySearchTree_sizeHelper(bst->root);
+}
+
+BSTNode* BinarySearchTree_kthSmallestHelper(BSTNode* node, int* visits, int k) {
+	if (node == NULL || visits == NULL) return NULL;
+
+	BSTNode* left = BinarySearchTree_kthSmallestHelper(node->left, visits, k);
+	if (left != NULL) return left;
+
+	*visits = *visits + 1;
+	if (*visits == k) return node;
+	
+	return BinarySearchTree_kthSmallestHelper(node->right, visits, k);
+}
+
+//for now: assume k is not bigger than the size of the BST
+BSTNode* BinarySearchTree_kthSmallestValue(BinarySearchTree* bst, int k) {
+	if (bst == NULL) return NULL;
+	if (k <= 0) return NULL;
+	if (k > BinarySearchTree_size(bst)) return NULL;
+	int visits = 0;
+	return BinarySearchTree_kthSmallestHelper(bst->root, &visits, k);
+}

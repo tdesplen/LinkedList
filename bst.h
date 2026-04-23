@@ -34,6 +34,10 @@ int BinarySearchTree_destroy(BinarySearchTree** bst);
 BSTNode* BinarySearchTree_minimumValue(BSTNode* bst);
 BSTNode* BinarySearchTree_maximumValue(BSTNode* bst);
 int BinarySearchTree_height(BinarySearchTree* height);
+int BinarySearchTree_sizeHelper(BSTNode* node);
+int BinarySearchTree_size(BinarySearchTree* bst);
+BSTNode* BinarySearchTree_kthSmallestHelper(BSTNode* node, int* visits, int k);
+BSTNode* BinarySearchTree_kthSmallestValue(BinarySearchTree* bst, int k);
 
 
 #endif

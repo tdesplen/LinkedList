@@ -136,12 +136,14 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="pointers.c" />
     <CICompile Include="main.c" />
+    <ClCompile Include="strings.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
     <ClInclude Include="bst.h" />
     <ClInclude Include="linkedlist.h" />
     <ClInclude Include="pointers.h" />
+    <ClInclude Include="strings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

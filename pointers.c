@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "pointers.h"
 
 void printChallenge() {
 	int a[] = { 10,20,30 };
